@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  db:
+    image: postgres:12.1
+    environment:
+      POSTGRES_USER: dinner_dash
+    ports:
+      - '5432:5432'
+    volumes:
+      - dinner-dash-db:/var/lib/postgresql/data
+  web:
+    depends_on:
+      - db
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      #DATABASE_URL: postgresql://dinner_dash:test_db_password@db:5432/dinner_dash?encoding=utf8&pool=5&timeout=5000
+
+      RAILS_ENV: development
+      POSTGRES_USER: dinner_dash
+      POSTGRES_HOST: db
+    volumes:
+      - ".:/workdir"
+
+volumes:
+  dinner-dash-db:
