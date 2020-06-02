@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
   db:
     image: postgres:12.1
@@ -8,20 +8,45 @@ services:
       - '5432:5432'
     volumes:
       - dinner-dash-db:/var/lib/postgresql/data
-  web:
+
+  app:
+    image: app-dinner-dash
     depends_on:
       - db
     build: .
+    environment:
+      RAILS_ENV: development
+      POSTGRES_USER: dinner_dash
+      POSTGRES_HOST: db
+    command: spring server
+    volumes:
+      - ".:/workdir"
+
+  web:
+    image: app-dinner-dash
+    command:
+      sh -c "bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:create db:migrate && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 8080"
+    depends_on:
+      - app
+      - webpacker
     ports:
       - "8080:8080"
     environment:
-      #DATABASE_URL: postgresql://dinner_dash:test_db_password@db:5432/dinner_dash?encoding=utf8&pool=5&timeout=5000
-
       RAILS_ENV: development
       POSTGRES_USER: dinner_dash
       POSTGRES_HOST: db
     volumes:
       - ".:/workdir"
+
+  webpacker:
+    image: app-dinner-dash
+    depends_on:
+      - app
+    command: sh -c "./bin/webpack-dev-server --hot --mode development"
+    volumes:
+      - ".:/workdir"
+    ports:
+      - "3035:3035"
 
 volumes:
   dinner-dash-db:
