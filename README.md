@@ -5,5 +5,6 @@ Running the application locally
 * Install Docker with Docker Compose
 
 * From inside the project root folder
-  * run `docker-compose build`
-  * run `docker-compose up`
+  * run `docker-compose up --build`
+
+* Live reloading is enabled
