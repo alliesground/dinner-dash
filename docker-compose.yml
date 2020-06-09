@@ -9,44 +9,35 @@ services:
     volumes:
       - dinner-dash-db:/var/lib/postgresql/data
 
-  app:
-    image: app-dinner-dash
+  web:
+    build: .
+    command:
+      sh -c "bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:create db:migrate && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 3000"
     depends_on:
       - db
-    build: .
-    environment:
-      RAILS_ENV: development
-      POSTGRES_USER: dinner_dash
-      POSTGRES_HOST: db
-    command: spring server
-    volumes:
-      - ".:/workdir"
-
-  web:
-    image: app-dinner-dash
-    command:
-      sh -c "bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:create db:migrate && rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0 -p 8080"
-    depends_on:
-      - app
       - webpacker
     ports:
-      - "8080:8080"
+      - 3000:3000
     environment:
-      RAILS_ENV: development
       POSTGRES_USER: dinner_dash
       POSTGRES_HOST: db
+      NODE_ENV: development
+      RAILS_ENV: development
     volumes:
-      - ".:/workdir"
+      - .:/workdir
+      - /workdir/node_modules/
 
   webpacker:
-    image: app-dinner-dash
-    depends_on:
-      - app
-    command: sh -c "./bin/webpack-dev-server --hot --mode development"
+    build: .
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+    command: ./bin/webpack-dev-server
     volumes:
-      - ".:/workdir"
+      - .:/workdir
+      - /workdir/node_modules/
     ports:
-      - "3035:3035"
+      - '3035:3035'
 
 volumes:
   dinner-dash-db:

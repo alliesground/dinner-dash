@@ -24,7 +24,7 @@ RUN bundle install
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 3000
 
 # Start up
 #ENTRYPOINT ["sh", "./entrypoint.sh"]
