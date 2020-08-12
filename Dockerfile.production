@@ -45,6 +45,7 @@ MAINTAINER sam.snafu@gmail.com
 
 RUN apk add --update --no-cache \
     postgresql-client \
+    openssh \
     tzdata
 
 # Add user
@@ -62,6 +63,9 @@ ENV RAILS_LOG_TO_STDOUT true
 WORKDIR /workdir
 
 EXPOSE 8080
+
+# for SSH
+EXPOSE 22
 
 # Start up
 #ENTRYPOINT ["sh", "./entrypoint.sh"]
