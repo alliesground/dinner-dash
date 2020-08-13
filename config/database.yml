@@ -84,6 +84,6 @@ test:
 #
 production:
   <<: *default
-  database: eats-are-us-db
+  database: eats_are_us_production
   username: <%= ENV['POSTGRES_USER']%>
   password: <%= ENV['DINNER_DASH_DATABASE_PASSWORD'] %>
