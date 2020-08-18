@@ -64,8 +64,5 @@ WORKDIR /workdir
 
 EXPOSE 8080
 
-# for SSH
-EXPOSE 22
-
 # Start up
 #ENTRYPOINT ["sh", "./entrypoint.sh"]
