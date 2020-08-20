@@ -62,6 +62,10 @@ ENV RAILS_LOG_TO_STDOUT true
 
 WORKDIR /workdir
 
+VOLUME /workdir
+
+VOLUME /etc/nginx/
+
 EXPOSE 8080
 
 # Start up

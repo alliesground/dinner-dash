@@ -4,4 +4,5 @@ echo 'Postgres database has been created and migrated!'
 # Remove a potentially pre-existing server.pid for Rails.
 rm -f tmp/pids/server.pid
 
-bundle exec rails server -b 0.0.0.0 -p 8080
+#bundle exec rails server -b 0.0.0.0 -p 8080
+bundle exec puma -C config/puma.rb
