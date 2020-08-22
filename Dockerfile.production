@@ -65,4 +65,4 @@ WORKDIR /workdir
 EXPOSE 80
 
 # Start up
-#ENTRYPOINT ["sh", "./entrypoint.sh"]
+ENTRYPOINT ["sh", "./entrypoint.sh"]
