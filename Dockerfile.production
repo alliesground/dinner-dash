@@ -62,7 +62,7 @@ ENV RAILS_LOG_TO_STDOUT true
 
 WORKDIR /workdir
 
-EXPOSE 80
+EXPOSE 8080
 
 # Start up
 ENTRYPOINT ["sh", "./entrypoint.sh"]
