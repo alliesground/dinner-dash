@@ -1,0 +1,68 @@
+FROM ruby:2.7.1-alpine as Builder
+MAINTAINER sam.snafu@gmail.com
+
+RUN apk add --update --no-cache \
+    build-base \
+    postgresql-dev \
+    postgresql-client \
+    git \
+    nodejs-current \
+    yarn \
+    tzdata
+
+ENV APP_HOME /workdir
+RUN mkdir ${APP_HOME}
+WORKDIR ${APP_HOME}
+
+COPY Gemfile* ${APP_HOME}/
+
+RUN gem install bundler \
+  && bundle config set without 'development test' \
+  && bundle install \
+  # Remove unneeded files
+  && rm -rf /usr/local/bundle/cache/*.gem \
+  && find /usr/local/bundle/gems/ -name "*.c" -delete \
+  && find /usr/local/bundle/gems/ -name "*.o" -delete
+  
+COPY package.json yarn.lock ${APP_HOME}/
+RUN yarn install --check-files
+
+# copy the Rails app
+COPY . ${APP_HOME}
+
+ENV RAILS_ENV production
+
+# Precompile assets
+RUN bundle exec rake assets:precompile
+
+# Remove folders not needed in resulting image
+RUN rm -rf node_modules tmp/cache app/assets vendor/assets lib/assets spec
+
+####################################
+
+FROM ruby:2.7.1-alpine as Final
+MAINTAINER sam.snafu@gmail.com
+
+RUN apk add --update --no-cache \
+    postgresql-client \
+    openssh \
+    tzdata
+
+# Add user
+RUN addgroup -g 1000 -S user \
+  && adduser -u 1000 -S user -G user
+
+USER user
+
+# Copy app with gems from former build stage
+COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
+COPY --from=Builder --chown=user:user /workdir /workdir
+
+ENV RAILS_LOG_TO_STDOUT true
+
+WORKDIR /workdir
+
+EXPOSE 8080
+
+# Start up
+ENTRYPOINT ["sh", "./entrypoint.sh"]

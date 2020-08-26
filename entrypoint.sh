@@ -5,3 +5,4 @@ echo 'Postgres database has been created and migrated!'
 rm -f tmp/pids/server.pid
 
 bundle exec rails server -b 0.0.0.0 -p 8080
+#bundle exec puma -C config/puma.rb
