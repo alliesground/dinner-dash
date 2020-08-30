@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_27_041505) do
+ActiveRecord::Schema.define(version: 2020_08_30_135512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +43,12 @@ ActiveRecord::Schema.define(version: 2020_08_27_041505) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string "title"
-    t.string "desc"
+    t.string "title", null: false
+    t.string "desc", null: false
     t.decimal "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_items_on_title", unique: true
   end
 
   add_foreign_key "item_categories", "categories"
