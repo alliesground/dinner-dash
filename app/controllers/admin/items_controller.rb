@@ -1,5 +1,3 @@
-class Admin::ItemsController < ApplicationController
-  before_action :authenticate_admin!
-
+class Admin::ItemsController < Admin::ApplicationController
   def new; end
 end
