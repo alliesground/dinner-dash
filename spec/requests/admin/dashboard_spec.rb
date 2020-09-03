@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin', type: :request do
+RSpec.describe 'Admin::Dashboard', type: :request do
   describe 'access to dashboard' do
     context 'when admin user' do
       let(:admin) do
@@ -21,6 +21,10 @@ RSpec.describe 'Admin', type: :request do
     end
 
     it 'denies access to non-admin users'
-    it 'denies public access'
+
+    it 'denies public access' do
+      get admin_path
+      expect(response).to redirect_to new_admin_session_path
+    end
   end
 end
