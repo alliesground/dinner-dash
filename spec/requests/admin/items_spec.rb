@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'support/shared_examples/authentication'
 
 RSpec.describe 'Admin::ItemsManagement', type: :request do
   let(:admin) do
@@ -10,11 +11,15 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
   end
 
   describe 'get admin/new_items' do
-    #it_behaves_like "authenticated action", {get :new}
+    it_behaves_like "an admin authenticated action", 'get new_admin_item_path'
 
-    it 'returns status 200' do
-      get new_admin_item_path
-      expect(response).to have_http_status 200
+    context 'with authenticated admin' do
+      before(:each) { sign_in admin }
+
+      it 'returns status 200' do
+        get new_admin_item_path
+        expect(response).to have_http_status 200
+      end
     end
   end
 

@@ -1,4 +1,5 @@
 class Admin::ItemsController < ApplicationController
-  def new
-  end
+  before_action :authenticate_admin!
+
+  def new; end
 end
