@@ -14,6 +14,6 @@ Admin.create!(email: 'admin@test.com', password: 'password', password_confirmati
 puts 'admin created successfully'
 
 puts 'creating categories...'
-Category.create(name: 'test category') unless categories_count == 0
+Category.create(name: 'test category') if categories_count == 0
 puts 'categories created successfully'
 
