@@ -1,1 +1,22 @@
 %h1 New Item
+
+=form_with model: [:admin, @item] do |f|
+  %p
+    =f.label :title 
+    %br
+    =f.text_field :title
+  %p
+    =f.label :desc, 'description'
+    %br
+    =f.text_area :desc 
+  %p
+    =f.label :price
+    %br
+    =f.text_field :price
+  %p
+    =f.label 'Categories'
+    =f.collection_select(:category_ids, Category.all, :id, :name, {prompt: 'Please Select'})
+  %p
+
+    =f.submit
+

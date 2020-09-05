@@ -24,6 +24,18 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
   end
 
   describe 'item creation' do
-    it 'creates an item'
+    category = Category.create(name:'test')
+
+    it_behaves_like "an admin authenticated action", "post admin_items_path, params: { item: {title:'test item', desc: 'test desc', price: 0, category_ids: [#{category.id}]} }"
+
+    context 'with authenticated admin' do
+      before(:each) { sign_in admin }
+
+      it 'creates an item' do
+        expect{  
+          post admin_items_path, xhr: true, params: { item: {title: 'test item', desc: 'this is a test item', price: 1000, category_ids: [category.id] } 
+        } }.to change(Item, :count).by 1
+      end
+    end
   end
 end
