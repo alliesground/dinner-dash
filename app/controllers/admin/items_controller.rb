@@ -14,7 +14,7 @@ class Admin::ItemsController < Admin::ApplicationController
         end
       else
         format.js do
-          render plain: @item.errors.full_messages
+          set_flash_message(@item.errors.full_messages)
         end
       end
     end
@@ -29,5 +29,9 @@ class Admin::ItemsController < Admin::ApplicationController
       :price,
       category_ids: []
     )
+  end
+
+  def set_flash_message(msg)
+    response.set_header('Flash-Message',msg ) 
   end
 end

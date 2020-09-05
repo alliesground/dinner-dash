@@ -32,6 +32,8 @@ services:
 
   webpacker:
     build: .
+    tty: true
+    stdin_open: true
     environment:
       NODE_ENV: development
       RAILS_ENV: development

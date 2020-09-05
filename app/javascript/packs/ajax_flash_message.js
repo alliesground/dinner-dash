@@ -1,6 +1,6 @@
 document.addEventListener('ajax:complete', function(event) {
   const xhr = event.detail[0];
-  const msg = xhr.responseText;
+  const msg = xhr.getResponseHeader("Flash-Message");
 
-  alert(msg)
+  if(msg) alert(msg);
 })

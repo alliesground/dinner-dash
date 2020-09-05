@@ -15,7 +15,7 @@
     =f.text_field :price
   %p
     =f.label 'Categories'
-    =f.collection_select(:category_ids, Category.all, :id, :name, {prompt: 'Please Select'})
+    =f.collection_select(:category_ids, Category.all, :id, :name, {prompt: 'Please Select'}, {name: 'item[category_ids][]'})
   %p
 
     =f.submit
