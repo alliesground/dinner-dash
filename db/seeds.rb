@@ -6,12 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-admin = Admin.find_by(email: 'admin@test.com')
+test_admin = Admin.find_by(email: 'admin@test.com')
+categories_count = Category.count
 
-if admin
-  puts 'test admin already exists'
-else
-  puts 'creating admin...'
-  Admin.create!(email: 'admin@test.com', password: 'password', password_confirmation: 'password') unless admin
-  puts 'admin created successfully'
-end
+puts 'creating admin...'
+Admin.create!(email: 'admin@test.com', password: 'password', password_confirmation: 'password') unless test_admin
+puts 'admin created successfully'
+
+puts 'creating categories...'
+Category.create(name: 'test category') unless categories_count == 0
+puts 'categories created successfully'
+
