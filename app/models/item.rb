@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   has_many :item_categories
   has_many :categories, through: :item_categories
+  has_many_attached :images
 
   validates :categories, presence: true
   validates_presence_of :title, :desc

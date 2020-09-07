@@ -1,0 +1,7 @@
+%h1 Item
+
+%p= @item.title
+%p= @item.desc
+%p= @item.price
+- @item.images.each do |image|
+  = image_tag image

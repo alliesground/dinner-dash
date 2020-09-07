@@ -17,6 +17,9 @@
     =f.label 'Categories'
     =f.collection_select(:category_ids, Category.all, :id, :name, {prompt: 'Please Select'}, {name: 'item[category_ids][]'})
   %p
+    =f.label "Image"
+    %br
+    =f.file_field :images, multiple: true
 
     =f.submit
 

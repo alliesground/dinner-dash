@@ -10,7 +10,7 @@ class Admin::ItemsController < Admin::ApplicationController
       if @item.save
         format.js do
           flash[:notice] = 'Item saved'
-          redirect_to new_admin_item_path
+          redirect_to admin_item_path @item
         end
       else
         format.js do
@@ -20,6 +20,10 @@ class Admin::ItemsController < Admin::ApplicationController
     end
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
   private
 
   def item_params
@@ -27,7 +31,8 @@ class Admin::ItemsController < Admin::ApplicationController
       :title, 
       :desc, 
       :price,
-      category_ids: []
+      category_ids: [],
+      images: []
     )
   end
 
