@@ -10,14 +10,29 @@ RUN apk add --update --no-cache \
     yarn \
     tzdata
 
-ENV APP_HOME /workdir
-RUN mkdir ${APP_HOME}
-WORKDIR ${APP_HOME}
+
+
+ARG USER
+ARG HOME
+
+RUN apk add --update \
+    sudo
+
+RUN adduser --system --uid 1000 $USER
+RUN addgroup --system sudo
+RUN echo "%sudo ALL=(ALL) ALL" > /etc/sudoers.d/sudo 
+RUN adduser $USER sudo
+
+RUN echo "Welcome home: $USER"
+
+ENV APP_HOME ${HOME}
+
+WORKDIR ${HOME}
 
 COPY package.json yarn.lock ./
 RUN yarn install --check-files
 
-COPY Gemfile* ${APP_HOME}/
+COPY Gemfile* ${HOME}/
 
 RUN gem install bundler
 RUN bundle install

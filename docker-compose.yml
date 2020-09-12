@@ -10,7 +10,12 @@ services:
       - dinner-dash-db:/var/lib/postgresql/data
 
   web:
-    build: .
+    build:
+      context: .
+      args:
+        - HOME
+        - USER
+    user: "${UID}:${GID}"
     tty: true
     stdin_open: true
     command:
@@ -26,12 +31,21 @@ services:
       NODE_ENV: development
       RAILS_ENV: development
     volumes:
-      - .:/workdir
-      - /workdir/node_modules/
+      - .:$HOME
+      - $HOME/node_modules/
       - bundler_gems:/usr/local/bundle/
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      # - /etc/sudoers.d:/etc/sudoers.d:ro
 
   webpacker:
-    build: .
+    build:
+      context: .
+      args:
+        - HOME
+        - USER
+    user: "${UID}:${GID}"
     tty: true
     stdin_open: true
     environment:
@@ -39,9 +53,13 @@ services:
       RAILS_ENV: development
     command: ./bin/webpack-dev-server
     volumes:
-      - .:/workdir
-      - /workdir/node_modules/
+      - .:$HOME
+      - $HOME/node_modules/
       - bundler_gems:/usr/local/bundle/
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      # - /etc/sudoers.d:/etc/sudoers.d:ro
     ports:
       - '3035:3035'
 
