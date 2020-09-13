@@ -41,6 +41,8 @@ group :development, :test do
   gem 'capybara'
   gem 'pry', '~> 0.12.2'
   gem 'database_cleaner'
+  gem 'faker'
+  gem 'factory_bot_rails'
 end
 
 group :test do
