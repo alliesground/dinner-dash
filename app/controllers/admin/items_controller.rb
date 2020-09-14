@@ -28,6 +28,27 @@ class Admin::ItemsController < Admin::ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+  
+  def update
+    @item = Item.find(params[:id])
+
+    respond_to do |format|
+      if @item.update(item_params)
+        format.js do
+          flash_message = 'Item updated successfully'
+          redirect_to admin_items_path
+        end
+      else
+        format.js do
+          set_flash_message("Error! Please fill the form properly")
+        end
+      end
+    end
+  end
+
   private
 
   def item_params
