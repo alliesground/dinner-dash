@@ -15,7 +15,8 @@ services:
       args:
         - HOME
         - USER
-    user: "${UID}:${GID}"
+        - UID
+    user: "${UID}:100"
     tty: true
     stdin_open: true
     command:
@@ -34,9 +35,9 @@ services:
       - .:$HOME
       - $HOME/node_modules/
       - bundler_gems:/usr/local/bundle/
-      - /etc/group:/etc/group:ro
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/shadow:/etc/shadow:ro
+      # - /etc/group:/etc/group:ro
+      # - /etc/passwd:/etc/passwd:ro
+      # - /etc/shadow:/etc/shadow:ro
       # - /etc/sudoers.d:/etc/sudoers.d:ro
 
   webpacker:
@@ -45,7 +46,8 @@ services:
       args:
         - HOME
         - USER
-    user: "${UID}:${GID}"
+        - UID
+    user: "${UID}:1000"
     tty: true
     stdin_open: true
     environment:
@@ -56,9 +58,9 @@ services:
       - .:$HOME
       - $HOME/node_modules/
       - bundler_gems:/usr/local/bundle/
-      - /etc/group:/etc/group:ro
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/shadow:/etc/shadow:ro
+      # - /etc/group:/etc/group:ro
+      # - /etc/passwd:/etc/passwd:ro
+      # - /etc/shadow:/etc/shadow:ro
       # - /etc/sudoers.d:/etc/sudoers.d:ro
     ports:
       - '3035:3035'

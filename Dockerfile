@@ -14,13 +14,17 @@ RUN apk add --update --no-cache \
 
 ARG USER
 ARG HOME
+ARG UID
 
 RUN apk add --update \
     sudo
 
-RUN adduser --system --uid 1000 $USER
-RUN addgroup --system sudo
-RUN echo "%sudo ALL=(ALL) ALL" > /etc/sudoers.d/sudo 
+
+RUN echo "Welcome home: $USER => $UID"
+
+RUN adduser -S -D -G users -u $UID $USER
+RUN addgroup -S sudo
+RUN echo "%sudo ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/sudo 
 RUN adduser $USER sudo
 
 RUN echo "Welcome home: $USER"
