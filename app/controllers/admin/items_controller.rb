@@ -34,11 +34,12 @@ class Admin::ItemsController < Admin::ApplicationController
   
   def update
     @item = Item.find(params[:id])
+    @item.images.attach(item_params[:images])
 
     respond_to do |format|
-      if @item.update(item_params)
+      if @item.update(item_params.except(:images))
         format.js do
-          flash_message = 'Item updated successfully'
+          set_flash_message('Item updated successfully')
           redirect_to admin_items_path
         end
       else
