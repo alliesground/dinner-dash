@@ -29,8 +29,7 @@
     %br
 
     - f.object.images.each do |image|
-      = image_tag image.variant(resize: "100, 100")
-    -# = image_tag f.object.images.variant(resize_to_limit: [100, 100])
+      = image_tag image.variant(resize_to_limit: [100, 100])
     %br
 
     =f.submit

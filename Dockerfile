@@ -8,9 +8,8 @@ RUN apk add --update --no-cache \
     git \
     nodejs-current \
     yarn \
-    tzdata
-
-
+    tzdata \
+    imagemagick
 
 ARG USER
 ARG HOME
@@ -18,7 +17,6 @@ ARG UID
 
 RUN apk add --update \
     sudo
-
 
 RUN echo "Welcome home: $USER => $UID"
 
