@@ -124,4 +124,26 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
     end
   end
 
+  describe "delete attached image" do
+    before(:each) { sign_in admin }
+
+    let(:category) { Category.create(name:'test') }
+
+    let!(:item) do
+      Item.create(
+        title: 'existing item',
+        desc: 'this is existing item',
+        price: 1,
+        category_ids: [category.id],
+        images: [image]
+      )
+    end
+
+    it 'deletes attached image' do
+      expect {
+        delete delete_attached_image_admin_items_path(item.images.first.id)
+      }.to change{ActiveStorage::Attachment.count}.from(1).to(0)
+    end
+  end
+
 end

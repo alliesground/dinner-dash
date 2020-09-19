@@ -34,7 +34,7 @@ class Admin::ItemsController < Admin::ApplicationController
   
   def update
     @item = Item.find(params[:id])
-    @item.images.attach(item_params[:images])
+    @item.images.attach(item_params[:images]) if item_params[:images].present?
 
     respond_to do |format|
       if @item.update(item_params.except(:images))
@@ -48,6 +48,12 @@ class Admin::ItemsController < Admin::ApplicationController
         end
       end
     end
+  end
+
+  def delete_attached_image
+    @image = ActiveStorage::Attachment.find(params[:id]) 
+    @image.purge
+    redirect_back(fallback_location: edit_admin_item_path)  
   end
 
   private

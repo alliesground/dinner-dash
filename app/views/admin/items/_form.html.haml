@@ -30,6 +30,12 @@
 
     - f.object.images.each do |image|
       = image_tag image.variant(resize_to_limit: [100, 100])
+      %br
+        = link_to 'Delete', 
+          delete_attached_image_admin_items_path(image.id),
+          method: :delete,
+          data: { confirm: 'Are you sure?' }
+    %br
     %br
 
     =f.submit

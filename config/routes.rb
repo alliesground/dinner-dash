@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
-    resources :items
+    resources :items do
+      collection do
+        delete '/images/:id', to: 'items#delete_attached_image', as: :delete_attached_image
+      end
+    end
   end
 end
