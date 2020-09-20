@@ -67,8 +67,4 @@ class Admin::ItemsController < Admin::ApplicationController
       images: []
     )
   end
-
-  def set_flash_message(msg)
-    response.set_header('Flash-Message',msg ) 
-  end
 end

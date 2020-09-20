@@ -25,8 +25,4 @@ class Admin::CategoriesController < Admin::ApplicationController
   def category_params
     params.require(:category).permit(:name)
   end
-
-  def set_flash_message(msg)
-    response.set_header('Flash-Message',msg ) 
-  end
 end
