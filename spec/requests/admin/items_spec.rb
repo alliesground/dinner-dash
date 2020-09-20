@@ -17,7 +17,7 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
 
   describe 'get admin/new_items' do
     it_behaves_like 'an admin authenticated action', 
-                    'get new_admin_item_path', :include_shared => false
+                    'get new_admin_item_path'
 
     context 'with authenticated admin' do
       before(:each) { sign_in admin }
@@ -30,22 +30,20 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
   end
 
   describe 'item creation' do
-    let(:category) { Category.create(name:'test') }
-
-    it_behaves_like "an admin authenticated action", 
+    it_behaves_like "an admin authenticated action",
                     "post admin_items_path"
 
     context 'with authenticated admin' do
       before(:each) { sign_in admin }
 
       before(:each) do
+        category = create(:category)
+
         post admin_items_path, 
              xhr: true, 
-             params: { item: { title: 'test item', 
-                               desc: 'this is a test item', 
-                               price: 1000, 
-                               category_ids: [category.id],
-                               images: [image] } } 
+             params: { item: attributes_for(:item, 
+                                            category_ids: [category.id], 
+                                            images: [image]) }
       end
 
       it 'creates an item' do
@@ -60,6 +58,8 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
   end
 
   describe 'item update' do
+    let(:existing_item) { create(:item) }
+
     it_behaves_like "an admin authenticated action",
                     "put '/admin/items/1'"
 
@@ -67,26 +67,10 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
       before(:each) { sign_in admin }
 
       context 'with valid data' do
-        let(:category) { Category.create(name:'test') }
-
-        let(:existing_item) do
-          Item.create(
-            title: 'existing item',
-            desc: 'this is existing item',
-            price: 1,
-            category_ids: [category.id],
-            images: [image]
-          )
-        end
-
         before(:each) do
           put "/admin/items/#{existing_item.id}",
               xhr: true,
-              params: { item: {title: 'updated title',
-                               desc: existing_item.desc,
-                               price: existing_item.price,
-                               category_ids: existing_item.category_ids,
-                               images: [image]} }
+              params: { item: {title: 'updated title'} }
         end
 
         it 'updates item' do
@@ -96,53 +80,31 @@ RSpec.describe 'Admin::ItemsManagement', type: :request do
       end
 
       context 'with invalid data' do
-        let(:category) { Category.create(name:'test') }
-
-        let(:existing_item) do
-          Item.create(
-            title: 'existing item',
-            desc: 'this is existing item',
-            price: 1,
-            category_ids: [category.id],
-            images: [image]
-          )
+        before(:each) do
+          put "/admin/items/#{existing_item.id}",
+              xhr: true,
+              params: { item: {title: ''} }
         end
 
         it 'does not update item' do
-          put "/admin/items/#{existing_item.id}",
-              xhr: true,
-              params: { item: {title: '',
-                               desc: existing_item.desc,
-                               price: existing_item.price,
-                               category_ids: existing_item.category_ids,
-                               images: [image]} }
-
           existing_item.reload
-          expect(existing_item.title).to eq 'existing item'
+          expect(existing_item.title).to eq 'test item'
         end
       end
     end
   end
 
   describe "delete attached image" do
-    before(:each) { sign_in admin }
+    let!(:item) { create(:item, images: [image]) }
 
-    let(:category) { Category.create(name:'test') }
+    context 'with authenticated admin' do
+      before(:each) { sign_in admin }
 
-    let!(:item) do
-      Item.create(
-        title: 'existing item',
-        desc: 'this is existing item',
-        price: 1,
-        category_ids: [category.id],
-        images: [image]
-      )
-    end
-
-    it 'deletes attached image' do
-      expect {
-        delete delete_attached_image_admin_items_path(item.images.first.id)
-      }.to change{ActiveStorage::Attachment.count}.from(1).to(0)
+      it 'deletes attached image' do
+        expect {
+          delete delete_attached_image_admin_items_path(item.images.first.id)
+        }.to change{ActiveStorage::Attachment.count}.from(1).to(0)
+      end
     end
   end
 
