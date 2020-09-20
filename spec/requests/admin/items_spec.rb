@@ -2,13 +2,7 @@ require 'rails_helper'
 require 'support/shared_examples/authentication'
 
 RSpec.describe 'Admin::ItemsManagement', type: :request do
-  let(:admin) do
-    Admin.create(
-      email: 'admin@test.com',
-      password: 'password',
-      password_confirmation: 'password'
-    )
-  end
+  let(:admin) { create(:admin) }
 
   let(:image) do
     fixture_file_upload( Rails.root.join('public', 'apple-touch-icon.png'), 
