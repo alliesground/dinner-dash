@@ -10,5 +10,7 @@ Rails.application.routes.draw do
         delete '/images/:id', to: 'items#delete_attached_image', as: :delete_attached_image
       end
     end
+
+    resources :categories
   end
 end

@@ -1,0 +1,10 @@
+= form_with model: [:admin, @category] do |f|
+  %p
+    = f.label :name
+    %br
+
+    = f.text_field :name
+    %br
+    %br
+
+    = f.submit
