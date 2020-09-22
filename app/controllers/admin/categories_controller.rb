@@ -9,8 +9,8 @@ class Admin::CategoriesController < Admin::ApplicationController
     respond_to do |format|
       if @category.save
         format.js do
-          set_flash_message('Item saved')
-          # redirect_to admin_item_path @item
+          set_flash_message("Category #{@category.name} created")
+          redirect_to new_admin_category_path
         end
       else
         format.js do
