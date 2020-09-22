@@ -22,6 +22,14 @@
     =f.collection_select(:category_ids, Category.all, :id, :name, {prompt: 'Please Select'}, {name: 'item[category_ids][]'})
 
   %p
+    = label_tag "Active for sale"
+    %br
+    = f.radio_button :active_for_sale, true
+    = f.label :active_for_sale_true, "True"
+    = f.radio_button :active_for_sale, false
+    = f.label :active_for_sale_false, "False"
+
+  %p
     =f.label "Image"
     %br
 

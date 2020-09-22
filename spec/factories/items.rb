@@ -3,6 +3,7 @@ FactoryBot.define do
     title {'test item'}
     desc {'this is test item'}
     price {100.00}
+    active_for_sale { true }
     images { [] }
 
     before(:create) do |item|

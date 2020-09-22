@@ -63,6 +63,7 @@ class Admin::ItemsController < Admin::ApplicationController
       :title, 
       :desc, 
       :price,
+      :active_for_sale,
       category_ids: [],
       images: []
     )
