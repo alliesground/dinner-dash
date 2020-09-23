@@ -33,7 +33,7 @@ services:
       RAILS_ENV: development
     volumes:
       - .:$HOME
-      - $HOME/node_modules/
+      - node_modules:$HOME/node_modules/
       - bundler_gems:/usr/local/bundle/
       # - /etc/group:/etc/group:ro
       # - /etc/passwd:/etc/passwd:ro
@@ -56,7 +56,7 @@ services:
     command: ./bin/webpack-dev-server
     volumes:
       - .:$HOME
-      - $HOME/node_modules/
+      - node_modules:$HOME/node_modules/
       - bundler_gems:/usr/local/bundle/
       # - /etc/group:/etc/group:ro
       # - /etc/passwd:/etc/passwd:ro
@@ -68,3 +68,4 @@ services:
 volumes:
   dinner-dash-db:
   bundler_gems:
+  node_modules:
