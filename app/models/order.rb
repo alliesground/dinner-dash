@@ -6,4 +6,6 @@ class Order < ApplicationRecord
     cancelled: "cancelled",
     completed: "completed"
   }
+
+  has_many :order_items
 end
