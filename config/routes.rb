@@ -14,4 +14,5 @@ Rails.application.routes.draw do
     resources :categories
     resources :orders
   end
+  resources :search
 end

@@ -1,6 +1,6 @@
 class Admin::OrdersController < Admin::ApplicationController
   def index
-    @orders = Order.all
+    @orders = Order.find_by_status(params[:status])
   end
 
   def show

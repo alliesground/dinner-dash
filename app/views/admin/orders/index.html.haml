@@ -1,8 +1,13 @@
 %h1 All Orders
 
+= form_with(url: admin_orders_path, method: :get, local: true) do
+  = select_tag(:status, options_for_select(Order.statuses.to_a, selected: params[:status]), prompt: 'All')
+
+  = submit_tag "Search", name: nil
+
 %table{width: "100%"}
   %tr
     %th Order ID
     %th Status
     %th Link
-  = render @orders || "There are no Items."
+  = render @orders
