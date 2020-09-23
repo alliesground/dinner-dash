@@ -32,6 +32,5 @@ yarn-debug.log*
 
 /config/credentials/production.key
 
-.ash_history
-.irb_history
+.*_history
 .local/
