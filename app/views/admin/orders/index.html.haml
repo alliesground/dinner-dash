@@ -1,3 +1,8 @@
 %h1 All Orders
 
-= render @orders || "There are no Items."
+%table{width: "100%"}
+  %tr
+    %th Order ID
+    %th Status
+    %th Link
+  = render @orders || "There are no Items."
