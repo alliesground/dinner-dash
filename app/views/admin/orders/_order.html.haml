@@ -1,3 +1,3 @@
 %p
   = order.status
-  = link_to "order_#{order.id}"
+  = link_to "order_#{order.id}", admin_order_path(order)
