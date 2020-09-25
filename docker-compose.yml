@@ -53,7 +53,8 @@ services:
     environment:
       NODE_ENV: development
       RAILS_ENV: development
-    command: ./bin/webpack-dev-server
+    # command: ./bin/webpack-dev-server
+    command: sh -c "sudo rm -rf ./public/packs; ./bin/webpack-dev-server"
     volumes:
       - .:$HOME
       - node_modules:$HOME/node_modules/
