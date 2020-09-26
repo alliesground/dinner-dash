@@ -1,0 +1,4 @@
+$('tr#<%= @order.id %> .status').text('<%=@order.status%>')
+var cancelLink = $('tr#<%= @order.id %> .action a.cancel')
+cancelLink.removeAttr('href');
+cancelLink.hide();
