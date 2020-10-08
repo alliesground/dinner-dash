@@ -5,4 +5,7 @@
     - if order.ordered? || order.paid?
       = link_to "cancel", admin_order_path(order, order:{status:'cancelled'}), remote: true, method: :put, class: 'cancel'
 
+    - if order.ordered?
+      = link_to "mark as paid", admin_order_path(order, order:{status:'paid'}), remote: true, method: :put, class: 'paid'
+
     = link_to "show", admin_order_path(order)

@@ -1,4 +1,28 @@
-$('tr#<%= @order.id %> .status').text('<%=@order.status%>')
-var cancelLink = $('tr#<%= @order.id %> .action a.cancel')
-cancelLink.removeAttr('href');
-cancelLink.hide();
+(function() {
+
+  const order_status = '<%=@order.status%>'
+  const $order_tr = $('tr#<%= @order.id %>')
+
+  $order_tr.find('.status').text(order_status)
+
+  const hidePaidLink = () => {
+    const $paidlLink = $order_tr.find('.action a.paid')
+    $paidlLink.removeAttr('href');
+    $paidlLink.hide();
+  }
+
+  const hideCancelLink = () => {
+    const $cancelLink = $order_tr.find('.action a.cancel')
+    $cancelLink.removeAttr('href');
+    $cancelLink.hide();
+  }
+
+  if(order_status == 'paid') hidePaidLink()
+
+  if(order_status == 'cancelled') {
+    hideCancelLink()
+    hidePaidLink()
+  }
+
+})();
+
