@@ -8,4 +8,8 @@
     - if order.ordered?
       = link_to "mark as paid", admin_order_path(order, order:{status:'paid'}), remote: true, method: :put, class: 'paid'
 
-    = link_to "show", admin_order_path(order)
+    - if order.paid?
+      = link_to "mark as completed", admin_order_path(order, order:{status:'completed'}), remote: true, method: :put, class: 'completed'
+
+    = link_to "show", admin_order_path(order), class: 'show'
+

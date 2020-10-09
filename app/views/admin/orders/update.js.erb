@@ -1,5 +1,13 @@
 (function() {
 
+  let $linkCompleted = $('<a>')
+  $linkCompleted.attr("href", "<%=admin_order_path(@order, order:{status:'completed'})%>")
+  $linkCompleted.attr("data-remote", 'true')
+  $linkCompleted.text('mark as completed')
+  $linkCompleted.attr("data-method", "put")
+  $linkCompleted.attr("rel", "nofollow")
+  $linkCompleted.addClass("completed")
+
   const order_status = '<%=@order.status%>'
   const $order_tr = $('tr#<%= @order.id %>')
 
@@ -17,11 +25,30 @@
     $cancelLink.hide();
   }
 
-  if(order_status == 'paid') hidePaidLink()
+  const insertCompletedLink = () => {
+    const $paidLink = $order_tr.find('.action .paid')
+    $linkCompleted.insertBefore($paidLink)
+  }
+
+  const hideCompletedLink = () => {
+    const $linkCompleted = $order_tr.find('.action a.completed')
+    $linkCompleted.removeAttr('href');
+    $linkCompleted.hide();
+  }
+
+  if(order_status == 'paid') {
+    hidePaidLink()
+    insertCompletedLink()
+  } 
 
   if(order_status == 'cancelled') {
     hideCancelLink()
     hidePaidLink()
+  }
+
+  if(order_status == 'completed') {
+    hideCancelLink()
+    hideCompletedLink()
   }
 
 })();
