@@ -18,4 +18,26 @@ RSpec.describe 'Admin::OrdersManagement', type: :request do
     end
   end
 
+  describe 'order update' do
+    let(:order) { create(:order, status: 'paid') }
+
+    it_behaves_like 'an admin authenticated action', 
+                    "put '/admin/orders/1'"
+
+    context 'with authenticated admin' do
+      before(:each) { sign_in admin }
+
+      context 'with valid data' do
+        it 'updates order' do
+          put "/admin/orders/#{order.id}",
+              xhr: true,
+              params: { order: {status: 'completed'} }
+
+          order.reload
+          expect(order.status).to eq 'completed'
+        end
+      end
+    end
+  end
+
 end
