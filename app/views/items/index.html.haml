@@ -1,3 +1,8 @@
 %h1 All Items
 
+= search_form_for @q do |f|
+  = f.label 'Category'
+  = f.collection_select :categories_id_eq, Category.all, :id, :name, {include_blank: "All"}
+  = f.submit 'Search'
+
 = render @items
