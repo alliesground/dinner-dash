@@ -15,4 +15,6 @@ Rails.application.routes.draw do
     resources :orders
   end
   resources :search
+
+  resources :items, only: :index
 end
