@@ -1,6 +1,9 @@
 class CartItemsController < ApplicationController
   def create
-    @cart_item = CartItem.new(cart_item_params)
+    @cart_item = CartItem.new(
+      cart_id: params[:cart_id],
+      item_id: params[:item_id]
+    )
 
     if @cart_item.save
       flash[:success] = "Item added to cart"
@@ -8,14 +11,5 @@ class CartItemsController < ApplicationController
     else
       flash[:alert] = "something went wrong"
     end
-  end
-
-  private
-
-  def cart_item_params
-    params.require(:cart_item).permit(
-      :item_id,
-      :cart_id
-    )
   end
 end
