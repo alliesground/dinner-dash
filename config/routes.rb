@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :search
 
   resources :items, only: :index
+
+  resources :carts, only: :show
   
   resources :cart_items, only: :create do
     collection do
