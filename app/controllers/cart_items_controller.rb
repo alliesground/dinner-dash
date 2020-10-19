@@ -5,11 +5,16 @@ class CartItemsController < ApplicationController
       item_id: params[:item_id]
     )
 
-    if @cart_item.save
-      flash[:success] = "Item added to cart"
-      redirect_back(fallback_location: root_path)
-    else
-      flash[:alert] = "something went wrong"
+    respond_to do |format|
+      if @cart_item.save
+        format.js do
+          set_flash_message('Item added to cart')
+        end
+      else
+        format.js do
+          set_flash_message('something went wrong')
+        end
+      end
     end
   end
 
