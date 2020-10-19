@@ -11,5 +11,5 @@
   %body
     %p.notice= notice
     %p.alert= alert
-    = render 'shared/cart'
+    = render 'shared/cart' unless controller.controller_name == "carts"
     = yield
