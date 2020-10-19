@@ -18,7 +18,5 @@ Rails.application.routes.draw do
 
   resources :items, only: :index
   
-  resources :carts, only: [] do
-    resources :cart_items, only: :create 
-  end
+  resources :cart_items, only: :create
 end

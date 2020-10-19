@@ -14,6 +14,6 @@
   %b Images:
   = item.title
 
-= button_to 'Add to cart', cart_cart_items_path(@cart.id, item_id: item.id), method: :post
+= button_to 'Add to cart', cart_items_path(item_id: item.id), method: :post
 
 %hr
