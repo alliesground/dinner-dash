@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   resources :search
 
   resources :items, only: :index
+  
+  resources :cart_items, only: :create
 end
