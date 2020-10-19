@@ -12,4 +12,9 @@ class CartItemsController < ApplicationController
       flash[:alert] = "something went wrong"
     end
   end
+
+  def destroy_all
+    @cart.cart_items.destroy_all
+    redirect_back(fallback_location: root_path)
+  end
 end
