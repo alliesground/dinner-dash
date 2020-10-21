@@ -18,13 +18,14 @@ Rails.application.routes.draw do
 
   resources :items, only: :index
 
-  resources :carts, only: [] do
-    resources :cart_items, only: [:create], controller: 'carts/cart_items' do
+  namespace :cart do
+    resources :cart_items, only: [:create] do
       collection do
         delete 'destroy_all'
       end
     end
   end
 
-  get '/checkout', to: 'carts/cart_items#index', as: :checkout
+  get '/checkout', to: 'cart/cart_items#index', as: :checkout
+
 end

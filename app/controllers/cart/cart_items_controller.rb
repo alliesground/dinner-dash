@@ -1,4 +1,4 @@
-class Carts::CartItemsController < ApplicationController
+class Cart::CartItemsController < ApplicationController
   def index
     @cart_items = @cart.cart_items
   end
