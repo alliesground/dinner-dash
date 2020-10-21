@@ -1,0 +1,7 @@
+%h2 Your Cart Items
+
+- @cart_items.each do |cart_item|
+  %b= cart_item.item.title
+
+%div{style: "padding-top: 10px;"}
+  = link_to 'Clear cart', destroy_all_cart_cart_items_path(@cart), method: :delete

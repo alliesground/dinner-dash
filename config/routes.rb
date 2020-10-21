@@ -33,4 +33,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get '/checkout', to: 'carts/cart_items#index', as: :checkout
 end

@@ -1,4 +1,8 @@
 class Carts::CartItemsController < ApplicationController
+  def index
+    @cart_items = @cart.cart_items
+  end
+
   def create
     @cart_item = @cart.cart_items.build(item_id: params[:item_id])
     
