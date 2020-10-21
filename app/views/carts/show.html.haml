@@ -4,4 +4,4 @@
   %b= item.title
 
 %div{style: "padding-top: 10px;"}
-  = link_to 'Clear cart', destroy_all_cart_items_path, method: :delete
+  = link_to 'Clear cart', destroy_all_cart_cart_items_path(@cart), method: :delete
