@@ -19,6 +19,12 @@ class Cart::CartItemsController < ApplicationController
     end
   end
 
+  def destroy
+    cart_item = CartItem.find_by(id: params[:id])
+    cart_item.delete if cart_item
+    redirect_back(fallback_location: root_path)
+  end
+
   def destroy_all
     @cart.cart_items.destroy_all
     redirect_back(fallback_location: root_path)

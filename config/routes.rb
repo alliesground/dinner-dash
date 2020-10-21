@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :items, only: :index
 
   namespace :cart do
-    resources :cart_items, only: [:create] do
+    resources :cart_items, only: [:create, :destroy] do
       collection do
         delete 'destroy_all'
       end
