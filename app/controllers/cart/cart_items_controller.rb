@@ -1,10 +1,10 @@
 class Cart::CartItemsController < ApplicationController
   def index
-    @cart_items = @cart.cart_items
+    @cart_items = current_cart.cart_items
   end
 
   def create
-    @cart_item = @cart.cart_items.build(item_id: params[:item_id])
+    @cart_item = current_cart.cart_items.build(item_id: params[:item_id])
     
     respond_to do |format|
       if @cart_item.save
@@ -26,7 +26,7 @@ class Cart::CartItemsController < ApplicationController
   end
 
   def destroy_all
-    @cart.cart_items.destroy_all
+    current_cart.cart_items.destroy_all
     redirect_back(fallback_location: root_path)
   end
 end

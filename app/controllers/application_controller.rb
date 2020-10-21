@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include CartSessionHelper
+
   before_action :get_cart
 
   def set_flash_message(msg)
@@ -8,9 +10,6 @@ class ApplicationController < ActionController::Base
   private
 
   def get_cart
-    @cart = Cart.find(session[:cart_id])
-  rescue ActiveRecord::RecordNotFound
-    @cart = Cart.create
-    session[:cart_id] = @cart.id
+    current_cart
   end
 end
