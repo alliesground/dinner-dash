@@ -25,4 +25,8 @@ Rails.application.routes.draw do
       delete 'destroy_all'
     end
   end
+
+  resources :carts do
+    resources :cart_items, only: [:create], controller: 'carts/cart_items'
+  end
 end
