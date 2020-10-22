@@ -18,3 +18,5 @@ require("packs/ajax_flash_message")
 // const imagePath = (name) => images(name, true)
 
 import '../stylesheets/application';
+import Rails from '@rails/ujs'; 
+global.Rails = Rails;
