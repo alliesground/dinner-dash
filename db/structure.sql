@@ -147,7 +147,8 @@ CREATE TABLE public.ar_internal_metadata (
 CREATE TABLE public.cart_items (
     id bigint NOT NULL,
     item_id bigint NOT NULL,
-    cart_id bigint NOT NULL
+    cart_id bigint NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL
 );
 
 
@@ -762,6 +763,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200923012450'),
 ('20200923023423'),
 ('20201018091721'),
-('20201018092132');
+('20201018092132'),
+('20201021092609');
 
 
