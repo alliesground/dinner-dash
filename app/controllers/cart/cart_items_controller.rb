@@ -6,16 +6,12 @@ class Cart::CartItemsController < ApplicationController
   def create
     @cart_item = current_cart.cart_items.build(item_id: params[:item_id])
     
-    respond_to do |format|
-      if @cart_item.save
-        format.js do
-          set_flash_message('Item added to cart')
-        end
-      else
-        format.js do
-          set_flash_message('something went wrong')
-        end
-      end
+    if @cart_item.save
+      flash[:success] = 'Item successfully added to your cart'
+      redirect_to checkout_path
+    else
+      flash[:alert] = 'Something went wrong'
+      redirect_back(fallback_location: root_path)
     end
   end
 
