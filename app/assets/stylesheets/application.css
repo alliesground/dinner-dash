@@ -21,3 +21,17 @@ th, td {
   padding: 5px;
 }
 th { text-align: left; }
+
+h1#logo {
+  width: 200px;
+  display: inline-block;
+}
+
+nav {
+  display: inline-block;
+  float: right;
+}
+
+nav ul li {
+  display: inline-block;
+}
