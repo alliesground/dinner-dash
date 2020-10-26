@@ -8,7 +8,7 @@ RSpec.describe 'ItemsManagement', type: :request do
       item2 = create(:item, title: 'item2', category: category) 
 
       get items_path,
-          params: { q: {categories_id_eq: 1} }
+        params: { q: {categories_id_eq: category.id} }
 
       expect(response).to be_successful
       expect(response.body).to include("item1")
