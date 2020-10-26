@@ -1,5 +1,5 @@
 %h3#cart_icon 
-  = link_to checkout_path do
+  = link_to cart_cart_items_path do
     Shopping Cart Items (
     %span= current_cart.items.sum(:quantity)
     )

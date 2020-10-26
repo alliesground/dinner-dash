@@ -15,7 +15,7 @@
   = item.title
 
 - if current_cart.items.include?(item)
-  = button_to 'View cart', checkout_path, method: :get
+  = button_to 'View cart', cart_cart_items_path, method: :get
 - else
 
   = button_to 'Add to cart', cart_cart_items_path(item_id: item.id), method: :post, class: "btn_add_to_cart"

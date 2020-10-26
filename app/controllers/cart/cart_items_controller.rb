@@ -8,7 +8,7 @@ class Cart::CartItemsController < ApplicationController
     
     if @cart_item.save
       flash[:success] = 'Item successfully added to your cart'
-      redirect_to checkout_path
+      redirect_to cart_cart_items_path
     else
       flash[:alert] = 'Something went wrong'
       redirect_back(fallback_location: root_path)
