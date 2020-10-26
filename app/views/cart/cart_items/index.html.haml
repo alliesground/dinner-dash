@@ -10,4 +10,5 @@
 %div{style: "padding-top: 10px;"}
   = link_to 'Clear cart', destroy_all_cart_cart_items_path, method: :delete
 
-= button_to 'checkout', cart_checkout_path, method: :get
+%div{style: "padding-top: 10px;"}
+  = button_to 'Checkout', cart_checkout_path, method: :get
