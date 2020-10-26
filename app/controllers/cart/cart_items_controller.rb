@@ -1,4 +1,6 @@
 class Cart::CartItemsController < ApplicationController
+  before_action :authenticate_user!, only: :checkout
+
   def index
     @cart_items = current_cart.cart_items
   end
