@@ -40,6 +40,9 @@ class Cart::CartItemsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def checkout
+  end
+
   private
 
   def cart_item_params

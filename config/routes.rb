@@ -25,8 +25,7 @@ Rails.application.routes.draw do
         delete 'destroy_all'
       end
     end
+
+    get '/checkout', to: 'cart_items#checkout'
   end
-
-  # get '/checkout', to: 'cart/cart_items#index', as: :checkout
-
 end
