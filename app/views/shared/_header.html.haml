@@ -1,7 +1,10 @@
 .header
-  %h1#logo Dinner Dash
+  %h1#logo 
+    = link_to 'Dinner Dash', root_path
 
   %nav
     %ul
-      %li Sign up
-      %li Sign in
+      %li
+        = link_to 'Sign up', new_user_registration_path
+      %li
+        = link_to 'Sign in', new_user_session_path
