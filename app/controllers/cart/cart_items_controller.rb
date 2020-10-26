@@ -41,6 +41,8 @@ class Cart::CartItemsController < ApplicationController
   end
 
   def checkout
+    session.delete(:cart_id)
+    redirect_to root_path
   end
 
   private
