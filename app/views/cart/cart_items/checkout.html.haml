@@ -1,0 +1,14 @@
+%h1 Checkout
+
+= "items ( #{current_cart.cart_items.sum(:quantity)} ) => AU $#{current_cart.items.sum("cart_items.quantity * items.price")}"
+
+%br
+%br
+
+%b= "Total => AU $#{current_cart.items.sum("cart_items.quantity * items.price")}" 
+  
+%br
+%br
+%br
+
+= button_to 'Confirm and Pay'
