@@ -1,0 +1,8 @@
+.header
+  %h1#logo 
+    = link_to 'Dinner Dash', root_path
+
+  %nav
+    %ul
+      - if admin_signed_in?
+        %li= link_to 'Sign out', destroy_admin_session_path, method: :delete
