@@ -18,6 +18,7 @@ class PaymentsController < ApplicationController
     end
 
     session.delete(:cart_id)
+    flash[:success] = "Order has been successfully placed"
     redirect_to root_path
   end
 end
