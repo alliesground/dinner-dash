@@ -366,7 +366,8 @@ CREATE TABLE public.orders (
     id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    status public.order_status
+    status public.order_status,
+    user_id bigint NOT NULL
 );
 
 
@@ -728,6 +729,13 @@ CREATE INDEX index_orders_on_status ON public.orders USING btree (status);
 
 
 --
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_orders_on_user_id ON public.orders USING btree (user_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -798,6 +806,14 @@ ALTER TABLE ONLY public.order_items
 
 
 --
+-- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: item_categories fk_rails_fdf7b0e423; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -829,6 +845,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201018091721'),
 ('20201018092132'),
 ('20201021092609'),
-('20201026031615');
+('20201026031615'),
+('20201028130705');
 
 
