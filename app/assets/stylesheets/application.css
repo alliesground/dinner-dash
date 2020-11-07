@@ -35,3 +35,8 @@ nav {
 nav ul li {
   display: inline-block;
 }
+
+nav#top_nav ul li {
+  padding-right: 8px;
+  border-right: 1px solid #ccc;
+}
