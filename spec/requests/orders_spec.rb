@@ -1,7 +1,11 @@
 require 'rails_helper'
+require 'support/shared_examples/user_authentication'
 
 RSpec.describe 'OrdersManagement', type: :request do
   describe 'post /orders' do
+    it_behaves_like "a user authenticated action",
+                    "post orders_path"
+
     let(:cart) { Cart.create }
     let(:user) { create(:user) }
 
