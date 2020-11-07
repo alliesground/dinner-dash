@@ -34,19 +34,5 @@ RSpec.describe 'OrdersManagement', type: :request do
         expect(OrderItem.count).to eq 2
       end
     end
-
-
-    # it 'returns items by category' do
-    #   category = create(:category)
-    #   item1 = create(:item, title: 'item1', category: category) 
-    #   item2 = create(:item, title: 'item2', category: category) 
-
-    #   get items_path,
-    #     params: { q: {categories_id_eq: category.id} }
-
-    #   expect(response).to be_successful
-    #   expect(response.body).to include("item1")
-    #   expect(response.body).to include("item2")
-    # end
   end
 end
