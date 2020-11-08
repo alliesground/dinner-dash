@@ -3,12 +3,14 @@
 %table
   - @orders.each do |order|
     %tr
-      %th Order Date
-      %th Order Id
-    %tr
-      %td= order.created_at
-      %td= order.id
+      %th= "Order Date: #{order.created_at}"
+      %th= "Order Id: #{order.id}"
     - order.items.each do |item|
       %tr
-        %td= item.title
-        %td= item.price
+        %td{colspan:"2"}
+          = "#{item.title}: $#{item.price}"
+          = "Quantity: "
+          = OrderItem.quantity_for(order.id, item.id)
+    %tr
+      %td{colspan:"2"}
+        = "subtotal: #{order.subtotal}"

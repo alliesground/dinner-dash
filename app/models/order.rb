@@ -19,4 +19,10 @@ class Order < ApplicationRecord
       all
     end
   end
+
+  def subtotal
+    items.pluck(:price, :id).inject(0) do |subtotal, item|
+      subtotal + (item[0] * OrderItem.quantity_for(id, item[1]))
+    end
+  end
 end
