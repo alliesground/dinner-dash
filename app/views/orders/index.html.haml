@@ -3,14 +3,16 @@
 %table
   - @orders.each do |order|
     %tr
-      %th= "Order Date: #{order.created_at}"
+      %th= "Order Date: #{order.created_at.strftime("%b/%d/%Y")}"
+      %th= "Order Time: #{order.created_at.strftime("%I:%M%p")}"
       %th= "Order Id: #{order.id}"
+      %th= "Status: #{order.status}"
     - order.items.each do |item|
       %tr
-        %td{colspan:"2"}
+        %td{colspan:"4"}
           = "#{item.title}: #{number_to_currency(item.price, unit: '$')}"
           = "Quantity: "
           = OrderItem.quantity_for(order.id, item.id)
     %tr
-      %td{colspan:"2"}
+      %td{colspan:"4"}
         = "subtotal: #{number_to_currency(order.subtotal, unit: '$')}"
